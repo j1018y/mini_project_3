@@ -7,7 +7,7 @@
 #include <utility>
 
 #include "../config.hpp"
-
+using namespace std;
 
 typedef std::pair<size_t, size_t> Point;
 typedef std::pair<Point, Point> Move;
@@ -39,8 +39,8 @@ enum GameState {
   NONE
 };
 
-
 class State{
+
   public:
     //You may want to add more property for a state
     GameState game_state = UNKNOWN;
@@ -54,7 +54,9 @@ class State{
     State(Board board, int player): board(board), player(player){};
     
     int evaluate();
+    int val=0;
     State* next_state(Move move);
+    vector<State*> child;
     void get_legal_actions();
     std::string encode_output();
     std::string encode_state();

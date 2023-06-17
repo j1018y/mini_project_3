@@ -11,8 +11,20 @@
  * 
  * @return int 
  */
+static const int spaceVal[7] = {0, 1, 3, 3, 5, 9, 1000};//space,pawn,rook,knight,bishop,queen,king
+
 int State::evaluate(){
   // [TODO] design your own evaluation function
+  int returnVal=0;
+  for(int i=0;i<5;i++)
+  {
+    for(int j=0;j<6;j++)
+    {
+        returnVal+=spaceVal[board.board[player][i][j]];
+        returnVal-=spaceVal[board.board[1-player][i][j]];
+    }
+  }
+
   return 0;
 }
 
