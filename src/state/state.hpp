@@ -52,11 +52,11 @@ class State{
     State(int player): player(player){};
     State(Board board): board(board){};
     State(Board board, int player): board(board), player(player){};
-    
+    int THE_PLAYER;
     int evaluate();
     int val=0;
     State* next_state(Move move);
-    vector<State*> child;
+    //vector<State*> child;
     void get_legal_actions();
     std::string encode_output();
     std::string encode_state();

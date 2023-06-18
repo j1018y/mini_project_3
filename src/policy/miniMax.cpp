@@ -1,9 +1,13 @@
 #include <cstdlib>
+#include <climits>
+#include<iostream>
+#include <fstream>
 //#include <queue>
 
 #include "../state/state.hpp"
 #include "./miniMax.hpp"
 using namespace std;
+
 
 /**
  * @brief Randomly get a legal action
@@ -12,48 +16,47 @@ using namespace std;
  * @param depth You may need this for other policy
  * @return Move 
  */
-int miniMax::minimax(State *state, int depth, int minMaxPlayer){
-
+Move miniMax::get_move(State *state){
+    state->THE_PLAYER=state->player;
     state->get_legal_actions();
+    int choice=INT_MIN;
+    Move ans;
+    state->THE_PLAYER=state->player;
     for(auto x:state->legal_actions)
     {
-        State temp=(*state);
-        int xVal=temp.board.board[1-temp.player][x.first.first][x.first.second];
-        swap(temp.board.board[temp.player][x.first.first][x.first.second],temp.board.board[temp.player][x.second.first][x.second.second]);
-        temp.board.board[1-temp.player][x.second.first][x.second.second]=0;
-        state->child.push_back(&temp);
+        int num=minimax(state->next_state(x),4,0);
+        if(choice<num)
+        {
+            choice=num;
+            ans=x;
+        }
     }
+    return ans;
+}
+int miniMax::minimax(State *state, int depth, int minMaxPlayer){
 
-    if(!depth || state->child.empty())return  state->evaluate();
+    if(!depth)return state->evaluate();
+    state->get_legal_actions();
+    //std::cout<<"mini max depth"<<depth<<endl;
+
+    if(state->legal_actions.empty())return state->evaluate();
+    int value=INT_MIN;
     if(minMaxPlayer)
     {
         int value=INT_MIN;
-        for(auto a:state->child)value=max(value,minimax(a,depth-1,0));
+        for(auto a:state->legal_actions)
+        {
+            value=max(value,minimax(state->next_state(a),depth-1,0));
+        }
         return value;
     }
     else
     {
         int value=INT_MAX;
-        for(auto a:state->child)value=min(value,minimax(a,depth-1,1));
+        for(auto a:state->legal_actions)
+        {
+            value=min(value,minimax(state->next_state(a),depth-1,1));
+        }
         return value;
     }
 }
-/*priority_queue<pair<int,Move>>Q;
-
-    state->get_legal_actions();
-    for(auto x:state->legal_actions)
-    {
-        int xVal=state->board.board[1-state->player][x.first.first][x.first.second];
-        swap(state->board.board[state->player][x.first.first][x.first.second],
-        state->board.board[state->player][x.second.first][x.second.second]);
-        state->board.board[1-state->player][x.first.first][x.first.second]=0;
-
-        Q.push(pair(state->evaluate(),x));
-
-        swap(state->board.board[state->player][x.first.first][x.first.second],
-        state->board.board[state->player][x.second.first][x.second.second]);
-        state->board.board[1-state->player][x.first.first][x.first.second]=xVal;
-    }
-       
-    auto actions = Q.top().second;
-    return actions;*/

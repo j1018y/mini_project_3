@@ -16,16 +16,16 @@ static const int spaceVal[7] = {0, 1, 3, 3, 5, 9, 1000};//space,pawn,rook,knight
 int State::evaluate(){
   // [TODO] design your own evaluation function
   int returnVal=0;
-  for(int i=0;i<5;i++)
+  for(int i=0;i<6;i++)
   {
-    for(int j=0;j<6;j++)
+    for(int j=0;j<5;j++)
     {
-        returnVal+=spaceVal[board.board[player][i][j]];
-        returnVal-=spaceVal[board.board[1-player][i][j]];
+        returnVal+=spaceVal[board.board[this->THE_PLAYER][i][j]];
+        returnVal-=spaceVal[board.board[1-this->THE_PLAYER][i][j]];
     }
   }
 
-  return 0;
+  return returnVal;
 }
 
 
@@ -52,8 +52,8 @@ State* State::next_state(Move move){
   next.board[this->player][to.first][to.second] = moved;
   
   State* next_state = new State(next, 1-this->player);
-  
-  if(this->game_state != WIN)
+  next_state->THE_PLAYER=THE_PLAYER;
+ if(this->game_state != WIN)
     next_state->get_legal_actions();
   return next_state;
 }
