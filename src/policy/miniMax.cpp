@@ -24,7 +24,7 @@ Move miniMax::get_move(State *state){
     state->THE_PLAYER=state->player;
     for(auto x:state->legal_actions)
     {
-        int num=minimax(state->next_state(x),4,0);
+        int num=minimax(state->next_state(x),3,0);
         if(choice<num)
         {
             choice=num;

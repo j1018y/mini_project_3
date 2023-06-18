@@ -20,7 +20,7 @@ Move alphaBeta::get_move(State *state){
     Move ans;
     for(auto x:state->legal_actions)
     {
-        int num=alphabeta(state->next_state(x),6,INT_MIN,INT_MAX,0);//opponent choosing the smallest value
+        int num=alphabeta(state->next_state(x),4,INT_MIN,INT_MAX,0);//opponent choosing the smallest value
         if(choice<num)//player choosing
         {
             choice=num;
@@ -59,6 +59,4 @@ int alphaBeta::alphabeta(State *state, int depth, int a, int b, int minMaxPlayer
     }
 }
 
-        /*int xVal=temp.board.board[1-temp.player][x.first.first][x.first.second];
-        swap(temp.board.board[temp.player][x.first.first][x.first.second],temp.board.board[temp.player][x.second.first][x.second.second]);
-        temp.board.board[1-temp.player][x.second.first][x.second.second]=0;*/
+
