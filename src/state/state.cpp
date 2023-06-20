@@ -16,25 +16,22 @@ static const int spaceVal[7] = {0, 1, 5, 3, 3, 9, 1000};//space,pawn,rook,knight
 int State::evaluate(){
   // [TODO] design your own evaluation function
   int returnVal=0;
-  int oppVal=0;
-  int myVal=0;
+  
   for(int i=0;i<6;i++)
   {
     for(int j=0;j<5;j++)
     {
-        if(this->THE_PLAYER && i>=2 && spaceVal[board.board[this->THE_PLAYER][i][j]]!=1000 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]!=1000 )
+        if(this->THE_PLAYER && i<=3 && spaceVal[board.board[this->THE_PLAYER][i][j]]!=1000 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]!=1000 )
         {
           returnVal+=1.2*spaceVal[board.board[this->THE_PLAYER][i][j]];
-          if(i==5 && spaceVal[board.board[this->THE_PLAYER][i][j]]==1)returnVal+=7;
           returnVal-=1.1*spaceVal[board.board[1-this->THE_PLAYER][i][j]];
-          if(i==0 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]==1)returnVal-=7;
+          if(i==0 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]==9)returnVal-=2;
         }
-        else if(!this->THE_PLAYER &&i<=3 && spaceVal[board.board[this->THE_PLAYER][i][j]]!=1000 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]!=1000 && this->THE_PLAYER)
+        else if(!this->THE_PLAYER &&i>=2 && spaceVal[board.board[this->THE_PLAYER][i][j]]!=1000 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]!=1000 )
         {
           returnVal+=1.2*spaceVal[board.board[this->THE_PLAYER][i][j]];
-          if(i==5 && spaceVal[board.board[this->THE_PLAYER][i][j]]==1)returnVal+=5;
           returnVal-=1.1*spaceVal[board.board[1-this->THE_PLAYER][i][j]];
-          if(i==5 && spaceVal[board.board[this->THE_PLAYER][i][j]]==1)returnVal+=7;
+          if(i==5 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]==9)returnVal-=2;
         }
         else 
         {
@@ -42,13 +39,46 @@ int State::evaluate(){
           returnVal-=spaceVal[board.board[1-this->THE_PLAYER][i][j]];
         }
         
-        /*returnVal+=spaceVal[board.board[this->THE_PLAYER][i][j]];
-        returnVal-=spaceVal[board.board[1-this->THE_PLAYER][i][j]];*/
     }
   }
 
   return returnVal;
 }
+/*int State::evaluate(){
+  // [TODO] design your own evaluation function
+  int returnVal=0;
+  int oppVal=0;
+  int myVal=0;
+  for(int i=0;i<6;i++)
+  {
+    for(int j=0;j<5;j++)
+    {
+        if(!THE_PLAYER)//player is white
+        {
+          //opp
+          if(i==5 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]==9)oppVal+=12;
+          else if(i>=2 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]!=1000)oppVal+=1.1*spaceVal[board.board[1-this->THE_PLAYER][i][j]];
+          else oppVal+=spaceVal[board.board[1-this->THE_PLAYER][i][j]];
+          //me
+          if(i==0 && spaceVal[board.board[this->THE_PLAYER][i][j]]==9)myVal+=10;
+          else myVal+=1*spaceVal[board.board[this->THE_PLAYER][i][j]];
+        }
+        else if(THE_PLAYER)//player is black
+        {
+          //opp
+          if(i==0 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]==9)oppVal+=12;
+          else if(i<=3 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]!=1000)oppVal+=1.1*spaceVal[board.board[1-this->THE_PLAYER][i][j]];
+          else oppVal+=spaceVal[board.board[1-this->THE_PLAYER][i][j]];
+          //me
+          if(i==5 && spaceVal[board.board[this->THE_PLAYER][i][j]]==9)myVal+=10;
+          else myVal+=1*spaceVal[board.board[this->THE_PLAYER][i][j]];
+        }
+        
+    }
+  }
+
+  return myVal-oppVal;
+}*/
 
 
 /**
