@@ -11,7 +11,7 @@
  * 
  * @return int 
  */
-static const int spaceVal[7] = {0, 2, 8, 5, 5, 15, 1000};//space,pawn,rook,knight,bishop,queen,king
+static const int spaceVal[7] = {0, 1, 5, 3, 3, 9, 1000};//space,pawn,rook,knight,bishop,queen,king
 
 int State::evaluate(){
   // [TODO] design your own evaluation function
