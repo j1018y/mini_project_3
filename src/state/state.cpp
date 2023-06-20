@@ -11,7 +11,7 @@
  * 
  * @return int 
  */
-static const int spaceVal[7] = {0, 1, 5, 3, 3, 9, 1000};//space,pawn,rook,knight,bishop,queen,king
+static const int spaceVal[7] = {0, 2, 8, 5, 5, 15, 1000};//space,pawn,rook,knight,bishop,queen,king
 
 int State::evaluate(){
   // [TODO] design your own evaluation function
@@ -32,10 +32,13 @@ int State::evaluate(){
           returnVal+=1.2*spaceVal[board.board[this->THE_PLAYER][i][j]];
           returnVal-=1.1*spaceVal[board.board[1-this->THE_PLAYER][i][j]];
           //if(i==5 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]==9)returnVal-=2;
+          
         }
         else 
         {
-          returnVal+=spaceVal[board.board[this->THE_PLAYER][i][j]];
+          if(!this->THE_PLAYER)returnVal+=1.1*spaceVal[board.board[this->THE_PLAYER][i][j]];
+          else returnVal+=spaceVal[board.board[this->THE_PLAYER][i][j]];
+
           returnVal-=spaceVal[board.board[1-this->THE_PLAYER][i][j]];
         }
         
