@@ -25,13 +25,13 @@ int State::evaluate(){
         {
           returnVal+=1.2*spaceVal[board.board[this->THE_PLAYER][i][j]];
           returnVal-=1.1*spaceVal[board.board[1-this->THE_PLAYER][i][j]];
-          if(i==0 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]==9)returnVal-=2;
+          //if(i==0 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]==9)returnVal-=2;
         }
         else if(!this->THE_PLAYER &&i>=2 && spaceVal[board.board[this->THE_PLAYER][i][j]]!=1000 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]!=1000 )
         {
           returnVal+=1.2*spaceVal[board.board[this->THE_PLAYER][i][j]];
           returnVal-=1.1*spaceVal[board.board[1-this->THE_PLAYER][i][j]];
-          if(i==5 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]==9)returnVal-=2;
+          //if(i==5 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]==9)returnVal-=2;
         }
         else 
         {
