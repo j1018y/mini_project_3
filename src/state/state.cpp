@@ -11,17 +11,39 @@
  * 
  * @return int 
  */
-static const int spaceVal[7] = {0, 1, 3, 3, 5, 9, 1000};//space,pawn,rook,knight,bishop,queen,king
+static const int spaceVal[7] = {0, 1, 5, 3, 3, 9, 1000};//space,pawn,rook,knight,bishop,queen,king
 
 int State::evaluate(){
   // [TODO] design your own evaluation function
   int returnVal=0;
+  int oppVal=0;
+  int myVal=0;
   for(int i=0;i<6;i++)
   {
     for(int j=0;j<5;j++)
     {
-        returnVal+=spaceVal[board.board[this->THE_PLAYER][i][j]];
-        returnVal-=spaceVal[board.board[1-this->THE_PLAYER][i][j]];
+        if(this->THE_PLAYER && i>=2 && spaceVal[board.board[this->THE_PLAYER][i][j]]!=1000 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]!=1000 )
+        {
+          returnVal+=1.2*spaceVal[board.board[this->THE_PLAYER][i][j]];
+          if(i==5 && spaceVal[board.board[this->THE_PLAYER][i][j]]==1)returnVal+=7;
+          returnVal-=1.1*spaceVal[board.board[1-this->THE_PLAYER][i][j]];
+          if(i==0 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]==1)returnVal-=7;
+        }
+        else if(!this->THE_PLAYER &&i<=3 && spaceVal[board.board[this->THE_PLAYER][i][j]]!=1000 && spaceVal[board.board[1-this->THE_PLAYER][i][j]]!=1000 && this->THE_PLAYER)
+        {
+          returnVal+=1.2*spaceVal[board.board[this->THE_PLAYER][i][j]];
+          if(i==5 && spaceVal[board.board[this->THE_PLAYER][i][j]]==1)returnVal+=5;
+          returnVal-=1.1*spaceVal[board.board[1-this->THE_PLAYER][i][j]];
+          if(i==5 && spaceVal[board.board[this->THE_PLAYER][i][j]]==1)returnVal+=7;
+        }
+        else 
+        {
+          returnVal+=spaceVal[board.board[this->THE_PLAYER][i][j]];
+          returnVal-=spaceVal[board.board[1-this->THE_PLAYER][i][j]];
+        }
+        
+        /*returnVal+=spaceVal[board.board[this->THE_PLAYER][i][j]];
+        returnVal-=spaceVal[board.board[1-this->THE_PLAYER][i][j]];*/
     }
   }
 
@@ -219,7 +241,6 @@ void State::get_legal_actions(){
       }
     }
   }
-  std::cout << "\n";
   this->legal_actions = all_actions;
 }
 

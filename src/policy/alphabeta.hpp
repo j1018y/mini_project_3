@@ -9,5 +9,5 @@
 class alphaBeta{
 public:
   static int alphabeta(State *state, int depth,int a,int b, int minMaxPlayer);//minMaxPlayer:0 for min, 1 for max
-  static Move get_move(State *state);
+  static Move get_move(State *state, int depth);
 };

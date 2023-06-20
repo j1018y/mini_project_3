@@ -8,6 +8,6 @@
  */
 class miniMax{
 public:
-  static Move get_move(State *state);
+  static Move get_move(State *state,int depth);
   static int minimax(State *state, int depth, int minMaxPlayer);//minMaxPlayer:0 for min, 1 for max
 };

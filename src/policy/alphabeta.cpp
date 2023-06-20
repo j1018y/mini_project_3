@@ -13,15 +13,16 @@ using namespace std;
  * @param depth You may need this for other policy
  * @return Move 
  */
-Move alphaBeta::get_move(State *state){
+
+Move alphaBeta::get_move(State *state, int depth){
     state->THE_PLAYER=state->player;
     state->get_legal_actions();
     int choice=INT_MIN;
     Move ans;
     for(auto x:state->legal_actions)
     {
-        int num=alphabeta(state->next_state(x),4,INT_MIN,INT_MAX,0);//opponent choosing the smallest value
-        if(choice<num)//player choosing
+        int num=alphabeta(state->next_state(x),depth,INT_MIN,INT_MAX,0);//opponent choosing the smallest value
+        if(choice<num )//player choosing
         {
             choice=num;
             ans=x;

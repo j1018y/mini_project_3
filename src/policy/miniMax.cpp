@@ -16,15 +16,15 @@ using namespace std;
  * @param depth You may need this for other policy
  * @return Move 
  */
-Move miniMax::get_move(State *state){
+Move miniMax::get_move(State *state,int depth){
     state->THE_PLAYER=state->player;
     state->get_legal_actions();
     int choice=INT_MIN;
     Move ans;
-    state->THE_PLAYER=state->player;
+    //state->THE_PLAYER=state->player;
     for(auto x:state->legal_actions)
     {
-        int num=minimax(state->next_state(x),3,0);
+        int num=minimax(state->next_state(x),depth,0);
         if(choice<num)
         {
             choice=num;
@@ -40,7 +40,7 @@ int miniMax::minimax(State *state, int depth, int minMaxPlayer){
     //std::cout<<"mini max depth"<<depth<<endl;
 
     if(state->legal_actions.empty())return state->evaluate();
-    int value=INT_MIN;
+
     if(minMaxPlayer)
     {
         int value=INT_MIN;
