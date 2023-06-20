@@ -34,7 +34,11 @@ int alphaBeta::alphabeta(State *state, int depth, int a, int b, int minMaxPlayer
 
     if(!depth)return state->evaluate();
     state->get_legal_actions();
-
+    /*if(state->game_state==  WIN)
+    {
+        if(state->player==state->THE_PLAYER)return 1000000;
+        else return -1000000;
+    }*/
     if(state->legal_actions.empty())return  state->evaluate();
     if(minMaxPlayer)
     {

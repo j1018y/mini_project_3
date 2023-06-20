@@ -36,9 +36,9 @@ int State::evaluate(){
         }
         else 
         {
-          if(!this->THE_PLAYER)returnVal+=1.1*spaceVal[board.board[this->THE_PLAYER][i][j]];
-          else returnVal+=spaceVal[board.board[this->THE_PLAYER][i][j]];
-
+          /*if(!this->THE_PLAYER)returnVal+=1.1*spaceVal[board.board[this->THE_PLAYER][i][j]];
+          else returnVal+=spaceVal[board.board[this->THE_PLAYER][i][j]];*/
+          returnVal+=1.1*spaceVal[board.board[this->THE_PLAYER][i][j]];
           returnVal-=spaceVal[board.board[1-this->THE_PLAYER][i][j]];
         }
         
